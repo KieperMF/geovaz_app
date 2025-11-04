@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geovaz_app/home_page.dart';
+import 'package:geovaz_app/map/map_data_controller.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:location/location.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class MapPage extends StatefulWidget {
@@ -13,39 +13,12 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  MapController mapController = MapController();
-  Location location = Location();
-  PermissionStatus? permissionStatus;
-  LocationData? locationData;
-  bool serviceEnabled = false;
-  final ValueNotifier<LatLng?> currentPosition = ValueNotifier(null);
+  final controller = MapDataController();
 
   @override
   void initState() {
     super.initState();
-    initLocation();
-  }
-
-  initLocation() async {
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) return;
-    }
-
-    permissionStatus = await location.hasPermission();
-    if (permissionStatus == PermissionStatus.denied) {
-      permissionStatus = await location.requestPermission();
-    }
-    if (permissionStatus != PermissionStatus.granted) return;
-    locationData = await location.getLocation();
-    final LatLng position = LatLng(
-      locationData?.latitude ?? 0,
-      locationData?.longitude ?? 0,
-    );
-    currentPosition.value = position;
-
-    mapController.move(position, 16);
+    controller.initLocation();
   }
 
   @override
@@ -67,19 +40,19 @@ class _MapPageState extends State<MapPage> {
         child: Stack(
           children: [
             ValueListenableBuilder(
-              valueListenable: currentPosition,
+              valueListenable: controller.currentPosition,
               builder: (context, position, child) {
                 debugPrint(
                   'latitude: ${position?.latitude}, longitude: ${position?.longitude}',
                 );
                 return FlutterMap(
-                  mapController: mapController,
+                  mapController: controller.mapController,
                   options: MapOptions(
                     initialZoom: 5,
                     initialCenter: position ?? LatLng(0, 0),
 
                     onTap: (tapPosition, point) {
-                      currentPosition.value = point;
+                      controller.currentPosition.value = point;
                     },
                   ),
                   children: [
@@ -107,8 +80,39 @@ class _MapPageState extends State<MapPage> {
                 );
               },
             ),
+            Positioned(
+              right: 10,
+              bottom: 80,
+              child: Column(
+                children: [
+                  FloatingActionButton.small(
+                    heroTag: "zoom_in",
+                    child: const Icon(Icons.add),
+                    onPressed: () {
+                      final zoom = controller.mapController.camera.zoom + 1;
+                      controller.mapController.move(
+                        controller.mapController.camera.center,
+                        zoom,
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  FloatingActionButton.small(
+                    heroTag: "zoom_out",
+                    child: const Icon(Icons.remove),
+                    onPressed: () {
+                      final zoom = controller.mapController.camera.zoom - 1;
+                      controller.mapController.move(
+                        controller.mapController.camera.center,
+                        zoom,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ),
             ValueListenableBuilder(
-              valueListenable: currentPosition,
+              valueListenable: controller.currentPosition,
               builder: (context, position, child) {
                 if (position != null) {
                   return Align(
