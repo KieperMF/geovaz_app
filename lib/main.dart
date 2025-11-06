@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:geovaz_app/home_page.dart';
+import 'package:geovaz_app/service_locator.dart';
+import 'package:geovaz_app/view/home_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  setupServiceLocator();
   runApp(const MyApp());
 }
 

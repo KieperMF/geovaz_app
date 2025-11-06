@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geovaz_app/map/map_page.dart';
+import 'package:geovaz_app/view/map/pages/map_page.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 class HomePage extends StatefulWidget {

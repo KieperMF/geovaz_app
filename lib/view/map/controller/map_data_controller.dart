@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geovaz_app/domain/entity/address_entity.dart';
+import 'package:geovaz_app/domain/repositories/geo_vaz_repository.dart';
+import 'package:geovaz_app/service_locator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
 class MapDataController {
+  final _respository = sl<GeoVazRepository>();
   MapController mapController = MapController();
   Location location = Location();
   PermissionStatus? permissionStatus;
   LocationData? locationData;
   bool serviceEnabled = false;
   final ValueNotifier<LatLng?> currentPosition = ValueNotifier(null);
+  AddressEntity address = AddressEntity.empty();
 
   initLocation() async {
     serviceEnabled = await location.serviceEnabled();
@@ -28,5 +33,12 @@ class MapDataController {
     currentPosition.value = position;
 
     mapController.move(position, 16);
+  }
+
+  Future<void> getAddressFromLatLng(LatLng position) async {
+    final result = await _respository.getAddressFromLatLng(position: position);
+    result.fold((onSuccess) {
+      address = onSuccess;
+    }, (onFailure) {});
   }
 }
