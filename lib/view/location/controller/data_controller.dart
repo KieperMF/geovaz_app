@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geovaz_app/domain/entity/address_entity.dart';
@@ -6,7 +7,7 @@ import 'package:geovaz_app/service_locator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
-class MapDataController {
+class DataController {
   final _respository = sl<GeoVazRepository>();
   MapController mapController = MapController();
   Location location = Location();
@@ -37,8 +38,19 @@ class MapDataController {
 
   Future<void> getAddressFromLatLng(LatLng position) async {
     final result = await _respository.getAddressFromLatLng(position: position);
-    result.fold((onSuccess) {
-      address = onSuccess;
-    }, (onFailure) {});
+    result.fold(
+      (onSuccess) {
+        debugPrint('succes ${onSuccess.city})}');
+        address = onSuccess;
+      },
+      (onFailure) {
+        if (onFailure is DioException) {
+          final message = onFailure.response!.statusMessage;
+          debugPrint('exception:  $message');
+          return;
+        }
+        debugPrint('Error ${onFailure.toString()}');
+      },
+    );
   }
 }

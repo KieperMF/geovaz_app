@@ -8,7 +8,7 @@ extension AddressMapperDto on AddressDto {
       country: country,
       road: road,
       state: state,
-      houseNumber: house_number,
+      houseNumber: house_number ?? '',
     );
   }
 }

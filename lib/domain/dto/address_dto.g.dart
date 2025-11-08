@@ -11,7 +11,7 @@ _AddressDto _$AddressDtoFromJson(Map<String, dynamic> json) => _AddressDto(
   state: json['state'] as String,
   country: json['country'] as String,
   road: json['road'] as String,
-  house_number: (json['house_number'] as num).toInt(),
+  house_number: json['house_number'] as String?,
 );
 
 Map<String, dynamic> _$AddressDtoToJson(_AddressDto instance) =>

@@ -10,7 +10,7 @@ sealed class AddressDto with _$AddressDto {
     required String state,
     required String country,
     required String road,
-    required int house_number,
+    required String? house_number,
   }) = _AddressDto;
 
   factory AddressDto.fromJson(Map<String, dynamic> json) =>

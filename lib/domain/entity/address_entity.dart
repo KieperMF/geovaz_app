@@ -3,7 +3,7 @@ class AddressEntity {
   final String state;
   final String country;
   final String road;
-  final int houseNumber;
+  final String houseNumber;
 
   AddressEntity({
     required this.city,
@@ -19,7 +19,7 @@ class AddressEntity {
       country: '',
       road: '',
       state: '',
-      houseNumber: 0,
+      houseNumber: '',
     );
   }
 }

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AddressDto {
 
- String get city; String get state; String get country; String get road; int get house_number;
+ String get city; String get state; String get country; String get road; String? get house_number;
 /// Create a copy of AddressDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $AddressDtoCopyWith<$Res>  {
   factory $AddressDtoCopyWith(AddressDto value, $Res Function(AddressDto) _then) = _$AddressDtoCopyWithImpl;
 @useResult
 $Res call({
- String city, String state, String country, String road, int house_number
+ String city, String state, String country, String road, String? house_number
 });
 
 
@@ -65,14 +65,14 @@ class _$AddressDtoCopyWithImpl<$Res>
 
 /// Create a copy of AddressDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? city = null,Object? state = null,Object? country = null,Object? road = null,Object? house_number = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? city = null,Object? state = null,Object? country = null,Object? road = null,Object? house_number = freezed,}) {
   return _then(_self.copyWith(
 city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as String,state: null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
 as String,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
 as String,road: null == road ? _self.road : road // ignore: cast_nullable_to_non_nullable
-as String,house_number: null == house_number ? _self.house_number : house_number // ignore: cast_nullable_to_non_nullable
-as int,
+as String,house_number: freezed == house_number ? _self.house_number : house_number // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
@@ -154,7 +154,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String city,  String state,  String country,  String road,  int house_number)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String city,  String state,  String country,  String road,  String? house_number)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AddressDto() when $default != null:
 return $default(_that.city,_that.state,_that.country,_that.road,_that.house_number);case _:
@@ -175,7 +175,7 @@ return $default(_that.city,_that.state,_that.country,_that.road,_that.house_numb
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String city,  String state,  String country,  String road,  int house_number)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String city,  String state,  String country,  String road,  String? house_number)  $default,) {final _that = this;
 switch (_that) {
 case _AddressDto():
 return $default(_that.city,_that.state,_that.country,_that.road,_that.house_number);}
@@ -192,7 +192,7 @@ return $default(_that.city,_that.state,_that.country,_that.road,_that.house_numb
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String city,  String state,  String country,  String road,  int house_number)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String city,  String state,  String country,  String road,  String? house_number)?  $default,) {final _that = this;
 switch (_that) {
 case _AddressDto() when $default != null:
 return $default(_that.city,_that.state,_that.country,_that.road,_that.house_number);case _:
@@ -214,7 +214,7 @@ class _AddressDto implements AddressDto {
 @override final  String state;
 @override final  String country;
 @override final  String road;
-@override final  int house_number;
+@override final  String? house_number;
 
 /// Create a copy of AddressDto
 /// with the given fields replaced by the non-null parameter values.
@@ -249,7 +249,7 @@ abstract mixin class _$AddressDtoCopyWith<$Res> implements $AddressDtoCopyWith<$
   factory _$AddressDtoCopyWith(_AddressDto value, $Res Function(_AddressDto) _then) = __$AddressDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String city, String state, String country, String road, int house_number
+ String city, String state, String country, String road, String? house_number
 });
 
 
@@ -266,14 +266,14 @@ class __$AddressDtoCopyWithImpl<$Res>
 
 /// Create a copy of AddressDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? city = null,Object? state = null,Object? country = null,Object? road = null,Object? house_number = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? city = null,Object? state = null,Object? country = null,Object? road = null,Object? house_number = freezed,}) {
   return _then(_AddressDto(
 city: null == city ? _self.city : city // ignore: cast_nullable_to_non_nullable
 as String,state: null == state ? _self.state : state // ignore: cast_nullable_to_non_nullable
 as String,country: null == country ? _self.country : country // ignore: cast_nullable_to_non_nullable
 as String,road: null == road ? _self.road : road // ignore: cast_nullable_to_non_nullable
-as String,house_number: null == house_number ? _self.house_number : house_number // ignore: cast_nullable_to_non_nullable
-as int,
+as String,house_number: freezed == house_number ? _self.house_number : house_number // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

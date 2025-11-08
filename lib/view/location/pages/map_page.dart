@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geovaz_app/view/home_page.dart';
-import 'package:geovaz_app/view/map/controller/map_data_controller.dart';
+import 'package:geovaz_app/view/map/controller/data_controller.dart';
+import 'package:geovaz_app/view/map/pages/contact_data_page.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -13,7 +14,7 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  final controller = MapDataController();
+  final controller = DataController();
 
   @override
   void initState() {
@@ -51,9 +52,9 @@ class _MapPageState extends State<MapPage> {
                     initialZoom: 5,
                     initialCenter: position ?? LatLng(0, 0),
 
-                    onTap: (tapPosition, point) {
+                    onTap: (tapPosition, point) async {
                       controller.currentPosition.value = point;
-                      controller.getAddressFromLatLng(point);
+                      await controller.getAddressFromLatLng(point);
                     },
                   ),
                   children: [
@@ -67,6 +68,7 @@ class _MapPageState extends State<MapPage> {
                         markers: [
                           Marker(
                             point: position,
+                            alignment: Alignment(0, -0.5),
                             width: 40,
                             height: 40,
                             child: const Icon(
@@ -124,7 +126,15 @@ class _MapPageState extends State<MapPage> {
                         vertical: 16,
                       ),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  ContactDataPage(controller: controller),
+                            ),
+                          );
+                        },
                         child: Container(
                           height: 50,
                           width: 220,
