@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geovaz_app/view/home_page.dart';
-import 'package:geovaz_app/view/map/controller/data_controller.dart';
-import 'package:geovaz_app/view/map/pages/contact_data_page.dart';
+import 'package:geovaz_app/view/location/controller/data_controller.dart';
+import 'package:geovaz_app/view/location/pages/contact_data_page.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -139,7 +139,7 @@ class _MapPageState extends State<MapPage> {
                           height: 50,
                           width: 220,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(16),
+                            borderRadius: BorderRadius.circular(12),
                             color: Colors.blue,
                           ),
                           child: Center(

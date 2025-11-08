@@ -4,6 +4,7 @@ class AddressEntity {
   final String country;
   final String road;
   final String houseNumber;
+  final String zipCode;
 
   AddressEntity({
     required this.city,
@@ -11,6 +12,7 @@ class AddressEntity {
     required this.road,
     required this.state,
     required this.houseNumber,
+    required this.zipCode,
   });
 
   factory AddressEntity.empty() {
@@ -20,6 +22,7 @@ class AddressEntity {
       road: '',
       state: '',
       houseNumber: '',
+      zipCode: '',
     );
   }
 }

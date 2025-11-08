@@ -11,6 +11,7 @@ sealed class AddressDto with _$AddressDto {
     required String country,
     required String road,
     required String? house_number,
+    required String? postcode,
   }) = _AddressDto;
 
   factory AddressDto.fromJson(Map<String, dynamic> json) =>

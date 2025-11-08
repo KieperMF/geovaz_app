@@ -9,6 +9,7 @@ extension AddressMapperDto on AddressDto {
       road: road,
       state: state,
       houseNumber: house_number ?? '',
+      zipCode: postcode ?? '',
     );
   }
 }

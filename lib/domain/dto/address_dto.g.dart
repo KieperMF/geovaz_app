@@ -12,6 +12,7 @@ _AddressDto _$AddressDtoFromJson(Map<String, dynamic> json) => _AddressDto(
   country: json['country'] as String,
   road: json['road'] as String,
   house_number: json['house_number'] as String?,
+  postcode: json['postcode'] as String?,
 );
 
 Map<String, dynamic> _$AddressDtoToJson(_AddressDto instance) =>
@@ -21,4 +22,5 @@ Map<String, dynamic> _$AddressDtoToJson(_AddressDto instance) =>
       'country': instance.country,
       'road': instance.road,
       'house_number': instance.house_number,
+      'postcode': instance.postcode,
     };
