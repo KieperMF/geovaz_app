@@ -118,40 +118,68 @@ class _MapPageState extends State<MapPage> {
               valueListenable: controller.currentPosition,
               builder: (context, position, child) {
                 if (position != null) {
-                  return Align(
-                    alignment: AlignmentGeometry.bottomCenter,
+                  return Positioned(
+                    left: 50,
+                    right: 50,
+                    bottom: 16,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 16,
                       ),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  ContactDataPage(controller: controller),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          height: 50,
-                          width: 220,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: Colors.blue,
+                      child: Column(
+                        children: [
+                          ValueListenableBuilder(
+                            valueListenable: controller.address,
+                            builder: (context, value, child) {
+                              if (controller.address.value.city.isNotEmpty)
+                                return Container(
+                                  width: 220,
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue.withAlpha(180),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsGeometry.all(8),
+                                    child: Text(
+                                      '${controller.address.value.road}, ${controller.address.value.city}, ${controller.address.value.zipCode}',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                );
+                              return SizedBox();
+                            },
                           ),
-                          child: Center(
-                            child: Text(
-                              'Confirmar local',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
+                          SizedBox(height: 12),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ContactDataPage(controller: controller),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 220,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: Colors.blue,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'Confirmar local',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   );

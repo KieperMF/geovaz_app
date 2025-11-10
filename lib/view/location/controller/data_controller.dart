@@ -4,6 +4,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geovaz_app/domain/entity/address_entity.dart';
 import 'package:geovaz_app/domain/repositories/geo_vaz_repository.dart';
 import 'package:geovaz_app/service_locator.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
@@ -15,7 +16,11 @@ class DataController {
   LocationData? locationData;
   bool serviceEnabled = false;
   final ValueNotifier<LatLng?> currentPosition = ValueNotifier(null);
-  AddressEntity address = AddressEntity.empty();
+  ValueNotifier<AddressEntity> address = ValueNotifier(AddressEntity.empty());
+  String customerName = '';
+  String customerEmail = '';
+  String customerPhone = '';
+  ValueNotifier<XFile?> userImage = ValueNotifier(null);
 
   initLocation() async {
     serviceEnabled = await location.serviceEnabled();
@@ -41,7 +46,7 @@ class DataController {
     result.fold(
       (onSuccess) {
         debugPrint('succes ${onSuccess.city})}');
-        address = onSuccess;
+        address.value = onSuccess;
       },
       (onFailure) {
         if (onFailure is DioException) {
